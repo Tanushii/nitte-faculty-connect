@@ -37,32 +37,57 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* University Header */}
+    <div 
+      className="min-h-screen flex items-center justify-center p-4 relative"
+      style={{
+        backgroundImage: `url('/lovable-uploads/486f1cfa-924c-49cd-ba37-8042e9b16636.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Overlay for better readability */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      
+      <div className="w-full max-w-md relative z-10">
+        {/* University Header with Logos */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Nitte (Deemed to be University)
+          <div className="flex justify-center items-center gap-4 mb-4">
+            <img 
+              src="/lovable-uploads/481162dc-1270-4042-b240-b55a3e737120.png" 
+              alt="Nitte Logo" 
+              className="h-16 w-auto"
+            />
+          </div>
+          <div className="bg-white bg-opacity-95 rounded-lg p-4 mb-4">
+            <img 
+              src="/lovable-uploads/94064fec-c444-4d15-a0f9-5de687c7b34e.png" 
+              alt="NMIT Logo" 
+              className="h-12 w-auto mx-auto"
+            />
+          </div>
+          <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">
+            Faculty Portal
           </h1>
-          <p className="text-lg text-gray-600">
-            NMIT - Bangalore Campus
+          <p className="text-lg text-white drop-shadow-lg">
+            Academic Excellence Management System
           </p>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4"></div>
+          <div className="w-24 h-1 bg-blue-400 mx-auto mt-4"></div>
         </div>
 
         {/* Login Card */}
-        <Card className="shadow-xl">
+        <Card className="shadow-2xl bg-white bg-opacity-95 backdrop-blur-sm">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-semibold">Faculty Portal</CardTitle>
-            <CardDescription>Please select your role and login</CardDescription>
+            <CardTitle className="text-2xl font-semibold text-gray-800">Welcome Back</CardTitle>
+            <CardDescription className="text-gray-600">Please select your role and login to continue</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Role Selection */}
               <div className="space-y-2">
-                <Label htmlFor="role">Login As</Label>
+                <Label htmlFor="role" className="text-gray-700 font-medium">Login As</Label>
                 <Select value={role} onValueChange={setRole}>
-                  <SelectTrigger>
+                  <SelectTrigger className="border-gray-300 focus:border-blue-500">
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
                   <SelectContent>
@@ -76,38 +101,40 @@ const Login = () => {
               {/* Credentials */}
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="id">Employee ID</Label>
+                  <Label htmlFor="id" className="text-gray-700 font-medium">Employee ID</Label>
                   <Input
                     id="id"
                     type="text"
                     placeholder="Enter your Employee ID"
                     value={credentials.id}
                     onChange={(e) => setCredentials(prev => ({ ...prev, id: e.target.value }))}
+                    className="border-gray-300 focus:border-blue-500"
                     required
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
                   <Input
                     id="password"
                     type="password"
                     placeholder="Enter your password"
                     value={credentials.password}
                     onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
+                    className="border-gray-300 focus:border-blue-500"
                     required
                   />
                 </div>
               </div>
 
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-                Login
+              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3">
+                Login to Portal
               </Button>
             </form>
           </CardContent>
         </Card>
 
-        <div className="text-center mt-6 text-sm text-gray-500">
+        <div className="text-center mt-6 text-sm text-white drop-shadow-lg bg-black bg-opacity-30 rounded-lg py-2">
           © 2024 Nitte (Deemed to be University) - NMIT Bangalore
         </div>
       </div>

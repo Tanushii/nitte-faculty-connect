@@ -7,10 +7,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogOut, Users, FileText, CheckCircle, Clock, Eye, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { LogOut, Users, FileText, CheckCircle, Clock, Eye, ThumbsUp, ThumbsDown, Search, Mail, Phone } from 'lucide-react';
 
 const HODDashboard = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
   const [stats] = useState({
     totalFaculties: 12,
     totalUploads: 47,
@@ -48,6 +50,59 @@ const HODDashboard = () => {
     }
   ]);
 
+  const [facultyList] = useState([
+    {
+      id: 1,
+      name: "Dr. Sarah Johnson",
+      position: "Professor",
+      department: "Computer Science",
+      email: "sarah.johnson@nmit.ac.in",
+      phone: "+91 9876543210",
+      avatar: "/api/placeholder/60/60",
+      uploads: 15,
+      lastActive: "2024-01-20"
+    },
+    {
+      id: 2,
+      name: "Prof. Mike Chen",
+      position: "Associate Professor",
+      department: "Computer Science", 
+      email: "mike.chen@nmit.ac.in",
+      phone: "+91 9876543211",
+      avatar: "/api/placeholder/60/60",
+      uploads: 12,
+      lastActive: "2024-01-19"
+    },
+    {
+      id: 3,
+      name: "Dr. Emily Davis",
+      position: "Assistant Professor",
+      department: "Computer Science",
+      email: "emily.davis@nmit.ac.in", 
+      phone: "+91 9876543212",
+      avatar: "/api/placeholder/60/60",
+      uploads: 8,
+      lastActive: "2024-01-18"
+    },
+    {
+      id: 4,
+      name: "Prof. Robert Wilson",
+      position: "Associate Professor",
+      department: "Computer Science",
+      email: "robert.wilson@nmit.ac.in",
+      phone: "+91 9876543213", 
+      avatar: "/api/placeholder/60/60",
+      uploads: 20,
+      lastActive: "2024-01-17"
+    }
+  ]);
+
+  const [recentlyViewed] = useState([
+    { id: 1, name: "Dr. Sarah Johnson", position: "Professor", avatar: "/api/placeholder/40/40" },
+    { id: 2, name: "Prof. Mike Chen", position: "Associate Professor", avatar: "/api/placeholder/40/40" },
+    { id: 3, name: "Dr. Emily Davis", position: "Assistant Professor", avatar: "/api/placeholder/40/40" }
+  ]);
+
   const handleLogout = () => {
     localStorage.removeItem('userRole');
     localStorage.removeItem('userId');
@@ -58,6 +113,11 @@ const HODDashboard = () => {
     console.log(`${action} upload ${uploadId}`);
     // Handle approval logic here
   };
+
+  const filteredFaculty = facultyList.filter(faculty =>
+    faculty.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    faculty.position.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -129,7 +189,7 @@ const HODDashboard = () => {
           <TabsList>
             <TabsTrigger value="pending">Pending Approvals</TabsTrigger>
             <TabsTrigger value="all-uploads">All Uploads</TabsTrigger>
-            <TabsTrigger value="faculty-list">Faculty Details</TabsTrigger>
+            <TabsTrigger value="faculty-details">Faculty Details</TabsTrigger>
           </TabsList>
 
           <TabsContent value="pending">
@@ -242,16 +302,97 @@ const HODDashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="faculty-list">
+          <TabsContent value="faculty-details">
             <Card>
               <CardHeader>
-                <CardTitle>Department Faculty</CardTitle>
-                <CardDescription>Faculty members and their submission statistics</CardDescription>
+                <CardTitle>Faculty Search & Details</CardTitle>
+                <CardDescription>Search and view faculty profiles in your department</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {/* Faculty list would go here */}
-                  <p className="text-center text-gray-500 py-8">Faculty details will be displayed here</p>
+              <CardContent className="space-y-6">
+                {/* Search Bar */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input
+                    placeholder="Search faculty by name or position..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+
+                {/* Recently Viewed Profiles */}
+                {!searchQuery && (
+                  <div>
+                    <h3 className="text-lg font-medium mb-3">Recently Viewed Profiles</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                      {recentlyViewed.map((faculty) => (
+                        <Card key={faculty.id} className="cursor-pointer hover:shadow-md transition-shadow">
+                          <CardContent className="p-4">
+                            <div className="flex items-center gap-3">
+                              <Avatar className="h-12 w-12">
+                                <AvatarImage src={faculty.avatar} />
+                                <AvatarFallback>{faculty.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <h4 className="font-medium">{faculty.name}</h4>
+                                <p className="text-sm text-gray-600">{faculty.position}</p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Faculty Search Results */}
+                <div>
+                  <h3 className="text-lg font-medium mb-3">
+                    {searchQuery ? `Search Results (${filteredFaculty.length})` : `All Faculty (${facultyList.length})`}
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {filteredFaculty.map((faculty) => (
+                      <Card key={faculty.id} className="cursor-pointer hover:shadow-lg transition-shadow">
+                        <CardContent className="p-6">
+                          <div className="flex items-start gap-4">
+                            <Avatar className="h-16 w-16">
+                              <AvatarImage src={faculty.avatar} />
+                              <AvatarFallback>{faculty.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-lg">{faculty.name}</h4>
+                              <p className="text-blue-600 font-medium">{faculty.position}</p>
+                              <p className="text-sm text-gray-600 mb-2">{faculty.department}</p>
+                              
+                              <div className="space-y-1 text-sm text-gray-600">
+                                <div className="flex items-center gap-2">
+                                  <Mail className="h-4 w-4" />
+                                  <span>{faculty.email}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <Phone className="h-4 w-4" />
+                                  <span>{faculty.phone}</span>
+                                </div>
+                              </div>
+                              
+                              <div className="flex justify-between items-center mt-3">
+                                <div className="text-sm">
+                                  <span className="font-medium">{faculty.uploads}</span> uploads
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  Last active: {faculty.lastActive}
+                                </div>
+                              </div>
+                              
+                              <Button variant="outline" size="sm" className="mt-3 w-full">
+                                View Full Profile
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
               </CardContent>
             </Card>
