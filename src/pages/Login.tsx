@@ -15,11 +15,9 @@ const Login = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (role && credentials.id && credentials.password) {
-      // Store user info in localStorage for demo purposes
       localStorage.setItem('userRole', role);
       localStorage.setItem('userId', credentials.id);
       
-      // Navigate based on role
       switch (role) {
         case 'admin':
           navigate('/admin-dashboard');
@@ -38,7 +36,7 @@ const Login = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-4 relative animate-fade-in"
+      className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
         backgroundImage: `url('/lovable-uploads/93a5b02f-4504-4b78-b669-1ed7226e6af3.png')`,
         backgroundSize: 'cover',
@@ -46,14 +44,12 @@ const Login = () => {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* Enhanced overlay with gradient for better visual appeal */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/40"></div>
       
       <div className="w-full max-w-md relative z-10">
-        {/* University Header with Enhanced Styling */}
-        <div className="text-center mb-8 animate-scale-in">
+        <div className="text-center mb-8">
           <div className="flex justify-center items-center gap-4 mb-6">
-            <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-2xl hover:scale-105 transition-transform duration-300">
+            <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-2xl">
               <img 
                 src="/lovable-uploads/96e3db18-b61c-493b-ba28-56f6e4245dfa.png" 
                 alt="Nitte Logo" 
@@ -62,7 +58,7 @@ const Login = () => {
             </div>
           </div>
           
-          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 mb-6 shadow-2xl hover:scale-105 transition-transform duration-300">
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 mb-6 shadow-2xl">
             <img 
               src="/lovable-uploads/75c5322e-ba6b-461a-b417-21a9752bbed6.png" 
               alt="NMIT Logo" 
@@ -81,15 +77,13 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Enhanced Login Card */}
-        <Card className="shadow-2xl bg-white/95 backdrop-blur-md border-0 hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]">
+        <Card className="shadow-2xl bg-white/95 backdrop-blur-md border-0">
           <CardHeader className="text-center pb-6">
             <CardTitle className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</CardTitle>
             <CardDescription className="text-gray-600 text-base">Please select your role and login to continue</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={handleLogin} className="space-y-6">
-              {/* Enhanced Role Selection */}
               <div className="space-y-3">
                 <Label htmlFor="role" className="text-gray-800 font-semibold text-base">Login As</Label>
                 <Select value={role} onValueChange={setRole}>
@@ -97,14 +91,13 @@ const Login = () => {
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
                   <SelectContent className="bg-white/95 backdrop-blur-md">
-                    <SelectItem value="admin" className="hover:bg-blue-50">Admin</SelectItem>
-                    <SelectItem value="hod" className="hover:bg-blue-50">HOD (Head of Department)</SelectItem>
-                    <SelectItem value="faculty" className="hover:bg-blue-50">Faculty</SelectItem>
+                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="hod">HOD (Head of Department)</SelectItem>
+                    <SelectItem value="faculty">Faculty</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Enhanced Credentials Section */}
               <div className="space-y-5">
                 <div className="space-y-3">
                   <Label htmlFor="id" className="text-gray-800 font-semibold text-base">Employee ID</Label>
@@ -133,7 +126,6 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* Enhanced Login Button */}
               <Button 
                 type="submit" 
                 className="w-full h-12 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-base rounded-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
@@ -144,8 +136,7 @@ const Login = () => {
           </CardContent>
         </Card>
 
-        {/* Enhanced Footer */}
-        <div className="text-center mt-8 text-sm text-white/90 drop-shadow-lg bg-black/30 backdrop-blur-sm rounded-xl py-3 px-6 hover:bg-black/40 transition-colors duration-300">
+        <div className="text-center mt-8 text-sm text-white/90 drop-shadow-lg bg-black/30 backdrop-blur-sm rounded-xl py-3 px-6">
           <p className="font-medium">© 2024 Nitte (Deemed to be University) - NMIT Bangalore</p>
         </div>
       </div>
