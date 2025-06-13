@@ -40,7 +40,7 @@ const Login = () => {
     <div 
       className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
-        backgroundImage: `url('/lovable-uploads/486f1cfa-924c-49cd-ba37-8042e9b16636.png')`,
+        backgroundImage: `url('/lovable-uploads/93a5b02f-4504-4b78-b669-1ed7226e6af3.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -54,14 +54,14 @@ const Login = () => {
         <div className="text-center mb-8">
           <div className="flex justify-center items-center gap-4 mb-4">
             <img 
-              src="/lovable-uploads/481162dc-1270-4042-b240-b55a3e737120.png" 
+              src="/lovable-uploads/96e3db18-b61c-493b-ba28-56f6e4245dfa.png" 
               alt="Nitte Logo" 
               className="h-16 w-auto"
             />
           </div>
           <div className="bg-white bg-opacity-95 rounded-lg p-4 mb-4">
             <img 
-              src="/lovable-uploads/94064fec-c444-4d15-a0f9-5de687c7b34e.png" 
+              src="/lovable-uploads/75c5322e-ba6b-461a-b417-21a9752bbed6.png" 
               alt="NMIT Logo" 
               className="h-12 w-auto mx-auto"
             />

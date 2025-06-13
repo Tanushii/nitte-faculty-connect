@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,12 +6,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { LogOut, Users, FileText, Building, TrendingUp, Search, Mail, Phone, Eye } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { LogOut, Users, FileText, Building, TrendingUp, Search, Mail, Phone, Eye, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchType, setSearchType] = useState<'faculty' | 'hod'>('faculty');
   
   const [overallStats] = useState({
     totalFaculties: 145,
@@ -107,6 +106,107 @@ const AdminDashboard = () => {
     }
   ]);
 
+  const [timelineData] = useState([
+    {
+      id: 1,
+      faculty: "Dr. Sarah Johnson",
+      department: "Computer Science",
+      title: "Research Paper on AI Ethics",
+      type: "Publication",
+      uploadDate: "2024-01-20",
+      uploadTime: "10:30 AM",
+      hodApproval: "Approved",
+      hodApprovalDate: "2024-01-21",
+      adminStatus: "Pending",
+      priority: "High"
+    },
+    {
+      id: 2,
+      faculty: "Prof. Mike Chen",
+      department: "Electronics",
+      title: "Conference Presentation - IoT Applications",
+      type: "Conference",
+      uploadDate: "2024-01-19",
+      uploadTime: "2:15 PM",
+      hodApproval: "Approved",
+      hodApprovalDate: "2024-01-20",
+      adminStatus: "Approved",
+      adminApprovalDate: "2024-01-21",
+      priority: "Medium"
+    },
+    {
+      id: 3,
+      faculty: "Dr. Emily Davis",
+      department: "Computer Science",
+      title: "Workshop on Machine Learning",
+      type: "Workshop",
+      uploadDate: "2024-01-18",
+      uploadTime: "4:45 PM",
+      hodApproval: "Pending",
+      hodApprovalDate: null,
+      adminStatus: "Waiting for HOD",
+      priority: "Low"
+    },
+    {
+      id: 4,
+      faculty: "Prof. Rajesh Kumar",
+      department: "Mechanical",
+      title: "Patent Application - New Engine Design",
+      type: "Patent",
+      uploadDate: "2024-01-17",
+      uploadTime: "11:20 AM",
+      hodApproval: "Approved",
+      hodApprovalDate: "2024-01-18",
+      adminStatus: "Under Review",
+      priority: "High"
+    }
+  ]);
+
+  const [finalApprovals] = useState([
+    {
+      id: 1,
+      faculty: "Dr. Sarah Johnson",
+      department: "Computer Science",
+      hod: "Dr. Rajesh Kumar",
+      title: "Research Paper on AI Ethics",
+      type: "Publication",
+      submissionDate: "2024-01-20",
+      hodApprovalDate: "2024-01-21",
+      urgency: "High",
+      description: "Comprehensive research on ethical implications of AI in healthcare systems",
+      documents: ["research_paper.pdf", "ethics_review.pdf", "peer_reviews.pdf"],
+      status: "Awaiting Final Approval"
+    },
+    {
+      id: 2,
+      faculty: "Prof. Rajesh Kumar",
+      department: "Mechanical",
+      hod: "Dr. Vikram Singh",
+      title: "Patent Application - New Engine Design",
+      type: "Patent",
+      submissionDate: "2024-01-17",
+      hodApprovalDate: "2024-01-18",
+      urgency: "High",
+      description: "Revolutionary engine design with 40% improved fuel efficiency",
+      documents: ["patent_application.pdf", "technical_drawings.pdf", "prototype_data.pdf"],
+      status: "Under Final Review"
+    },
+    {
+      id: 3,
+      faculty: "Dr. Priya Sharma",
+      department: "Biotechnology",
+      hod: "Dr. Meera Joshi",
+      title: "Clinical Trial Results - New Drug Compound",
+      type: "Research",
+      submissionDate: "2024-01-15",
+      hodApprovalDate: "2024-01-16",
+      urgency: "Critical",
+      description: "Phase 2 clinical trial results for novel cancer treatment compound",
+      documents: ["clinical_data.pdf", "statistical_analysis.pdf", "safety_report.pdf"],
+      status: "Awaiting Final Approval"
+    }
+  ]);
+
   const handleLogout = () => {
     localStorage.removeItem('userRole');
     localStorage.removeItem('userId');
@@ -123,6 +223,25 @@ const AdminDashboard = () => {
     faculty.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
     faculty.position.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'High': return 'text-red-600 bg-red-50';
+      case 'Critical': return 'text-red-800 bg-red-100';
+      case 'Medium': return 'text-yellow-600 bg-yellow-50';
+      case 'Low': return 'text-green-600 bg-green-50';
+      default: return 'text-gray-600 bg-gray-50';
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'Approved': return <CheckCircle className="h-4 w-4 text-green-600" />;
+      case 'Pending': case 'Under Review': return <Clock className="h-4 w-4 text-yellow-600" />;
+      case 'Rejected': return <XCircle className="h-4 w-4 text-red-600" />;
+      default: return <AlertCircle className="h-4 w-4 text-gray-600" />;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -241,11 +360,53 @@ const AdminDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Upload Timeline</CardTitle>
-                <CardDescription>Chronological view of all submissions (most recent first)</CardDescription>
+                <CardDescription>Chronological view of all submissions across departments</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  Timeline view will display all uploads across departments with timestamps
+                <div className="space-y-4">
+                  {timelineData.map((item) => (
+                    <Card key={item.id} className="border-l-4 border-l-blue-500">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h4 className="font-semibold text-lg">{item.title}</h4>
+                              <Badge variant="outline" className={getPriorityColor(item.priority)}>
+                                {item.priority}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-2">
+                              By <span className="font-medium">{item.faculty}</span> • {item.department}
+                            </p>
+                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                              <span>📅 {item.uploadDate} at {item.uploadTime}</span>
+                              <span>📁 {item.type}</span>
+                            </div>
+                          </div>
+                          <div className="text-right space-y-2">
+                            <div className="flex items-center gap-2">
+                              {getStatusIcon(item.hodApproval)}
+                              <span className="text-sm">HOD: {item.hodApproval}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {getStatusIcon(item.adminStatus)}
+                              <span className="text-sm">Admin: {item.adminStatus}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-3 pt-3 border-t flex justify-between items-center">
+                          <div className="text-xs text-gray-500">
+                            {item.hodApprovalDate && `HOD approved on ${item.hodApprovalDate}`}
+                            {item.adminApprovalDate && ` • Admin approved on ${item.adminApprovalDate}`}
+                          </div>
+                          <Button variant="outline" size="sm">
+                            <Eye className="h-4 w-4 mr-2" />
+                            View Details
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -406,11 +567,79 @@ const AdminDashboard = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Final Admin Approvals</CardTitle>
-                <CardDescription>Items that have been approved by HODs and await final admin approval</CardDescription>
+                <CardDescription>Items approved by HODs awaiting final admin approval</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
-                  Final approval queue will be displayed here
+                <div className="space-y-6">
+                  {finalApprovals.map((item) => (
+                    <Card key={item.id} className="border-2 border-orange-200 bg-orange-50">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="text-xl font-semibold">{item.title}</h3>
+                              <Badge variant="outline" className={getPriorityColor(item.urgency)}>
+                                {item.urgency} Priority
+                              </Badge>
+                            </div>
+                            <p className="text-gray-600 mb-3">{item.description}</p>
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                              <div>
+                                <span className="font-medium">Faculty:</span> {item.faculty}
+                              </div>
+                              <div>
+                                <span className="font-medium">Department:</span> {item.department}
+                              </div>
+                              <div>
+                                <span className="font-medium">HOD:</span> {item.hod}
+                              </div>
+                              <div>
+                                <span className="font-medium">Type:</span> {item.type}
+                              </div>
+                              <div>
+                                <span className="font-medium">Submitted:</span> {item.submissionDate}
+                              </div>
+                              <div>
+                                <span className="font-medium">HOD Approved:</span> {item.hodApprovalDate}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <Button className="bg-green-600 hover:bg-green-700">
+                              <CheckCircle className="h-4 w-4 mr-2" />
+                              Approve
+                            </Button>
+                            <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50">
+                              <XCircle className="h-4 w-4 mr-2" />
+                              Reject
+                            </Button>
+                            <Button variant="outline">
+                              <Eye className="h-4 w-4 mr-2" />
+                              Review
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        <div className="border-t pt-4">
+                          <h4 className="font-medium mb-2">Attached Documents:</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {item.documents.map((doc, index) => (
+                              <Badge key={index} variant="secondary" className="cursor-pointer hover:bg-blue-100">
+                                📄 {doc}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <AlertCircle className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm font-medium text-blue-800">Status: {item.status}</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>
