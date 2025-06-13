@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-4 relative"
+      className="min-h-screen flex items-center justify-center p-4 relative animate-fade-in"
       style={{
         backgroundImage: `url('/lovable-uploads/93a5b02f-4504-4b78-b669-1ed7226e6af3.png')`,
         backgroundSize: 'cover',
@@ -46,96 +46,107 @@ const Login = () => {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      {/* Enhanced overlay with gradient for better visual appeal */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/40"></div>
       
       <div className="w-full max-w-md relative z-10">
-        {/* University Header with Logos */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center items-center gap-4 mb-4">
-            <img 
-              src="/lovable-uploads/96e3db18-b61c-493b-ba28-56f6e4245dfa.png" 
-              alt="Nitte Logo" 
-              className="h-16 w-auto"
-            />
+        {/* University Header with Enhanced Styling */}
+        <div className="text-center mb-8 animate-scale-in">
+          <div className="flex justify-center items-center gap-4 mb-6">
+            <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-2xl hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/lovable-uploads/96e3db18-b61c-493b-ba28-56f6e4245dfa.png" 
+                alt="Nitte Logo" 
+                className="h-16 w-auto"
+              />
+            </div>
           </div>
-          <div className="bg-white bg-opacity-95 rounded-lg p-4 mb-4">
+          
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 mb-6 shadow-2xl hover:scale-105 transition-transform duration-300">
             <img 
               src="/lovable-uploads/75c5322e-ba6b-461a-b417-21a9752bbed6.png" 
               alt="NMIT Logo" 
-              className="h-12 w-auto mx-auto"
+              className="h-14 w-auto mx-auto"
             />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">
-            Faculty Portal
-          </h1>
-          <p className="text-lg text-white drop-shadow-lg">
-            Academic Excellence Management System
-          </p>
-          <div className="w-24 h-1 bg-blue-400 mx-auto mt-4"></div>
+
+          <div className="space-y-3">
+            <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-2xl tracking-wide">
+              Faculty Portal
+            </h1>
+            <p className="text-xl text-white/90 drop-shadow-lg font-medium">
+              Academic Excellence Management System
+            </p>
+            <div className="w-32 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mt-4 rounded-full shadow-lg"></div>
+          </div>
         </div>
 
-        {/* Login Card */}
-        <Card className="shadow-2xl bg-white bg-opacity-95 backdrop-blur-sm">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-semibold text-gray-800">Welcome Back</CardTitle>
-            <CardDescription className="text-gray-600">Please select your role and login to continue</CardDescription>
+        {/* Enhanced Login Card */}
+        <Card className="shadow-2xl bg-white/95 backdrop-blur-md border-0 hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]">
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</CardTitle>
+            <CardDescription className="text-gray-600 text-base">Please select your role and login to continue</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-6">
             <form onSubmit={handleLogin} className="space-y-6">
-              {/* Role Selection */}
-              <div className="space-y-2">
-                <Label htmlFor="role" className="text-gray-700 font-medium">Login As</Label>
+              {/* Enhanced Role Selection */}
+              <div className="space-y-3">
+                <Label htmlFor="role" className="text-gray-800 font-semibold text-base">Login As</Label>
                 <Select value={role} onValueChange={setRole}>
-                  <SelectTrigger className="border-gray-300 focus:border-blue-500">
+                  <SelectTrigger className="h-12 border-2 border-gray-200 focus:border-blue-500 hover:border-blue-300 transition-colors rounded-lg bg-white/80 backdrop-blur-sm">
                     <SelectValue placeholder="Select your role" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="admin">Admin</SelectItem>
-                    <SelectItem value="hod">HOD (Head of Department)</SelectItem>
-                    <SelectItem value="faculty">Faculty</SelectItem>
+                  <SelectContent className="bg-white/95 backdrop-blur-md">
+                    <SelectItem value="admin" className="hover:bg-blue-50">Admin</SelectItem>
+                    <SelectItem value="hod" className="hover:bg-blue-50">HOD (Head of Department)</SelectItem>
+                    <SelectItem value="faculty" className="hover:bg-blue-50">Faculty</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* Credentials */}
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="id" className="text-gray-700 font-medium">Employee ID</Label>
+              {/* Enhanced Credentials Section */}
+              <div className="space-y-5">
+                <div className="space-y-3">
+                  <Label htmlFor="id" className="text-gray-800 font-semibold text-base">Employee ID</Label>
                   <Input
                     id="id"
                     type="text"
                     placeholder="Enter your Employee ID"
                     value={credentials.id}
                     onChange={(e) => setCredentials(prev => ({ ...prev, id: e.target.value }))}
-                    className="border-gray-300 focus:border-blue-500"
+                    className="h-12 border-2 border-gray-200 focus:border-blue-500 hover:border-blue-300 transition-colors rounded-lg bg-white/80 backdrop-blur-sm text-base"
                     required
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
+                <div className="space-y-3">
+                  <Label htmlFor="password" className="text-gray-800 font-semibold text-base">Password</Label>
                   <Input
                     id="password"
                     type="password"
                     placeholder="Enter your password"
                     value={credentials.password}
                     onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
-                    className="border-gray-300 focus:border-blue-500"
+                    className="h-12 border-2 border-gray-200 focus:border-blue-500 hover:border-blue-300 transition-colors rounded-lg bg-white/80 backdrop-blur-sm text-base"
                     required
                   />
                 </div>
               </div>
 
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3">
+              {/* Enhanced Login Button */}
+              <Button 
+                type="submit" 
+                className="w-full h-12 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-base rounded-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+              >
                 Login to Portal
               </Button>
             </form>
           </CardContent>
         </Card>
 
-        <div className="text-center mt-6 text-sm text-white drop-shadow-lg bg-black bg-opacity-30 rounded-lg py-2">
-          © 2024 Nitte (Deemed to be University) - NMIT Bangalore
+        {/* Enhanced Footer */}
+        <div className="text-center mt-8 text-sm text-white/90 drop-shadow-lg bg-black/30 backdrop-blur-sm rounded-xl py-3 px-6 hover:bg-black/40 transition-colors duration-300">
+          <p className="font-medium">© 2024 Nitte (Deemed to be University) - NMIT Bangalore</p>
         </div>
       </div>
     </div>
