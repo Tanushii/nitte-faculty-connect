@@ -38,7 +38,7 @@ const Login = () => {
     <div 
       className="min-h-screen flex items-center justify-center p-4 relative"
       style={{
-        backgroundImage: `url('/lovable-uploads/93a5b02f-4504-4b78-b669-1ed7226e6af3.png')`,
+        backgroundImage: `url('/lovable-uploads/6f054e58-53a4-4dee-8333-3c5d7ec95ca4.png')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
@@ -49,7 +49,7 @@ const Login = () => {
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
           <div className="flex justify-center items-center gap-4 mb-6">
-            <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-2xl">
+            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 shadow-2xl border border-white/30">
               <img 
                 src="/lovable-uploads/96e3db18-b61c-493b-ba28-56f6e4245dfa.png" 
                 alt="Nitte Logo" 
@@ -58,7 +58,7 @@ const Login = () => {
             </div>
           </div>
           
-          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 mb-6 shadow-2xl">
+          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-6 shadow-2xl border border-white/30">
             <img 
               src="/lovable-uploads/75c5322e-ba6b-461a-b417-21a9752bbed6.png" 
               alt="NMIT Logo" 
