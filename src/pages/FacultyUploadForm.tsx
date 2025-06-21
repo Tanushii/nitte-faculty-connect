@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Users, Calendar, Award } from 'lucide-react';
-import FacultyProfile from '@/components/FacultyProfile';
 
 const FacultyUploadForm = () => {
   const navigate = useNavigate();
@@ -63,9 +62,6 @@ const FacultyUploadForm = () => {
       </header>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Faculty Profile */}
-        <FacultyProfile className="mb-8" />
-
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Select Upload Category</h2>
           <p className="text-gray-600">Please select the appropriate category that best matches your content.</p>
