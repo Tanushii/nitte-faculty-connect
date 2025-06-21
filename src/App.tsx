@@ -21,7 +21,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/nitte-faculty-connect">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
@@ -31,7 +31,6 @@ const App = () => (
           <Route path="/faculty/form/certification-programs" element={<ProfessionalCertificationsForm />} />
           <Route path="/hod-dashboard" element={<HODDashboard />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
