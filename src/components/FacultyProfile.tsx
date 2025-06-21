@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { user } from 'lucide-react';
+import { User } from 'lucide-react';
 
 interface FacultyProfileProps {
   name?: string;
@@ -27,7 +27,7 @@ const FacultyProfile: React.FC<FacultyProfileProps> = ({
       </div>
       <Avatar className="h-12 w-12 bg-blue-600">
         <AvatarFallback className="bg-blue-600 text-white">
-          <user className="h-6 w-6" />
+          <User className="h-6 w-6" />
         </AvatarFallback>
       </Avatar>
     </div>
